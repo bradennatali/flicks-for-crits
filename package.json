@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "express": "^4.19.2",
     "init": "^0.1.2"
   },
   "scripts": {
@@ -9,7 +10,6 @@
   "description": "project 2 for UCD bootcamp",
   "version": "1.0.0",
   "main": "server.js",
-  "devDependencies": {},
   "author": "",
   "license": "ISC"
 }
