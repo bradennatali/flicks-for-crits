@@ -1,21 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Movies</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{movie.title}} - Movie Details</title>
 </head>
+
 <body>
-  <h1>List of Movies</h1>
-  <ul>
-    {{#each movies}}
-    <li>
-      <strong>Title:</strong> {{title}}<br>
-      <strong>Year:</strong> {{year}}<br>
-      <strong>Type:</strong> {{type}}<br>
-      <hr>
-    </li>
-    {{/each}}
-  </ul>
+    <h1>{{movie.title}}</h1>
+    <img src="{{movie.poster}}" alt="{{movie.title}} Poster">
+    <p>Year: {{movie.year}}</p>
+    <h2>Reviews</h2>
+    <ul>
+        {{#each reviews}}
+        <li>
+            <p>{{this.content}}</p>
+            <small>By: {{this.user}}</small>
+        </li>
+        {{/each}}
+    </ul>
+    <form action="/movies/{{movie.imdbID}}/comments" method="POST">
+        <textarea name="content" placeholder="Write your review here"></textarea>
+        <input type="text" name="userId" placeholder="Your user ID">
+        <button type="submit">Submit Review</button>
+    </form>
 </body>
+
 </html>
