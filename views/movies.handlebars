@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movies</title>
+</head>
+<body>
+  <h1>List of Movies</h1>
+  <ul>
+    {{#each movies}}
+    <li>
+      <strong>Title:</strong> {{title}}<br>
+      <strong>Year:</strong> {{year}}<br>
+      <strong>Type:</strong> {{type}}<br>
+      <hr>
+    </li>
+    {{/each}}
+  </ul>
+</body>
+</html>
