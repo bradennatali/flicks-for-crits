@@ -34,11 +34,6 @@ User.init(
             validate: {
                 len: [8],
             },
-        },
-        review: {
-            type: DataTypes.STRING,
-            allowNull: true,
-            primaryKey: true,
         }
     },
     {
