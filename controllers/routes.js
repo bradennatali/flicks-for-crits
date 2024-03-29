@@ -23,16 +23,17 @@ router.get('/movies', async (req, res) => {
       }
     });
 
+    // Extract movie data from the response and format it
     const movies = response.data.Search.map(movie => ({
       title: movie.Title,
       year: movie.Year,
       poster: movie.Poster,
       imdbID: movie.imdbID
     }));
-    res.json(movies);
+    res.json(movies); // Send the formatted movie data as JSON response
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error(error); // Log any errors that occur during the API request
+    res.status(500).json({ error: 'Internal Server Error' }); // Send a 500 status code with error message
   }
 });
 
@@ -42,19 +43,20 @@ router.post('/movies/:imdbID/reviews', async (req, res) => {
     const { imdbID } = req.params;
     const { content, userId } = req.body;
 
-   // Check if the movie exists
-const movie = await Movie.findOne({ where: { imdbID } });
-if (!movie) {
-  return res.status(404).json({ error: 'Movie not found' });
-}
+    // Check if the movie with the specified IMDb ID exists in the database
+    const movie = await Movie.findOne({ where: { imdbID } });
+    if (!movie) {
+      return res.status(404).json({ error: 'Movie not found' }); // Send 404 status code if movie not found
+    }
 
-// Create and save the review
-const review = await Review.create({ content, userId, movieId: movie.id });
+    // Create and save the review for the movie
+    const review = await Review.create({ content, userId, movieId: movie.id });
 
-res.status(201).json({ message: 'Review added successfully', review });
+    // Send a success response with the newly created review
+    res.status(201).json({ message: 'Review added successfully', review });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error(error); // Log any errors that occur during the review creation process
+    res.status(500).json({ error: 'Internal Server Error' }); // Send a 500 status code with error message
   }
 });
 
