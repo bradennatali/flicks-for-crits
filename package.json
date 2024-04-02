@@ -9,6 +9,8 @@
     "express-session": "^1.18.0",
     "init": "^0.1.2",
     "mysql2": "^3.9.2",
+    "node-cache": "^5.1.2",
+    "node-cron": "^3.0.3",
     "sequelize": "^6.37.1"
   },
   "scripts": {

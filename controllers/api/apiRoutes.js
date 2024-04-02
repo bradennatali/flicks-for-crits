@@ -1,3 +1,6 @@
+const NodeCache = require('node-cache');
+const myCache = new NodeCache();
+const { cacheData, getCachedData } = require('./cache.js');
 const express = require('express'); 
 const axios = require('axios'); 
 require('dotenv').config(); 
@@ -12,22 +15,47 @@ const omdbAxios = axios.create({ // Create an Axios instance for making API requ
 
 const router = express.Router(); // Create a router instance using Express
 
+const isLoggedIn = (req, res, next) => {
+    if (req.session.userId) {
+      // User is logged in, continue with the next middleware or route handler
+      next();
+    } else {
+      // User is not logged in, redirect to the signup page
+      res.redirect('/signup'); // will change '/' 
+    }
+  };
+
 // Define a GET endpoint for '/movies' route
-router.get('/movies', async (req, res) => {
-  try {
-    const searchTerm = req.query.search; // Extract the search term from the query parameters
-    const response = await omdbAxios.get('/', { // Send a GET request to the OMDB API
-      params: {
-        s: searchTerm // Set the 's' parameter to the search term
+router.get('/movies', isLoggedIn, async (req, res) => {
+    try {
+      const searchTerm = req.query.search;
+  
+      // Check if data is already cached
+      const cachedData = getCachedData(searchTerm);
+      if (cachedData) {
+        console.log('Data retrieved from cache');
+        res.json(cachedData);
+        return; // Exit the route handler since data is already cached
       }
-    });
+  
+      // Data is not cached, make API request and cache the response
+      const response = await omdbAxios.get('/', {
+        params: {
+          s: searchTerm
+        }
+      });
+  
+      const movies = response.data.Search;
+  
+      // Cache the data
+      cacheData(searchTerm, movies);
+  
+      res.json(movies); // Send the movie data as JSON response to the client
+    } catch (error) {
+      console.error('Error fetching movie data:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
 
-    const movies = response.data.Search; // Extract the list of movies from the API response
-    res.json(movies); // Send the movie data as JSON response to the client
-  } catch (error) {
-    console.error('Error fetching movie data:', error); // Log any errors that occur during the API request
-    res.status(500).json({ error: 'Internal Server Error' }); // Send an error response with status code 500
-  }
-});
-
-module.exports = router; // Export the router module for use in other parts of the application
+module.exports = router; 

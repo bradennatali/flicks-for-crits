@@ -13,8 +13,30 @@ const omdbAxios = axios.create({
   }
 });
 
+const isLoggedIn = (req, res, next) => {
+  if (req.session.userId) {
+    // User is logged in, continue with the next middleware or route handler
+    next();
+  } else {
+    // User is not logged in, redirect to the signup page
+    res.redirect('/signup'); 
+  }
+};
+
+
+// Redirect root URL to the homepage
+router.get('/', (req, res) => {
+  res.redirect('/main'); // Redirect to the homepage route
+});
+
+// Homepage route
+router.get('/home', isLoggedIn, (req, res) => {
+  res.render('main'); // Render the 'home' Handlebars template
+});
+
+
 // GET route to fetch movies based on search term
-router.get('/movies', async (req, res) => {
+router.get('/movies', isLoggedIn, async (req, res) => {
   try {
     const searchTerm = req.query.search;
     const response = await omdbAxios.get('/', {
@@ -38,7 +60,7 @@ router.get('/movies', async (req, res) => {
 });
 
 // POST route to add a review to a movie
-router.post('/movies/:imdbID/reviews', async (req, res) => {
+router.post('/movies/:imdbID/reviews', isLoggedIn, async (req, res) => {
   try {
     const { imdbID } = req.params;
     const { content, userId } = req.body;
