@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Review Website</title>
+    <link rel="stylesheet" href="/public/css/jass.css">
+</head>
+
+<body>
+    <h1>Flicks for Crits</h1>
+    <ul>
+        {{#each movies}}
+        <li>
+            <h2 >{{this.title}}</h2>
+            <img src="{{this.poster}}" alt="{{this.title}} Poster">
+            <p>Year: {{this.year}}</p>
+            <a href="/movies/{{this.imdbID}}">View Details</a>
+        </li>
+        {{/each}}
+    </ul>
+</body>
+
+</html>
+
