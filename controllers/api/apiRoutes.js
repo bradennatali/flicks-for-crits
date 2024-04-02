@@ -1,6 +1,6 @@
 const NodeCache = require('node-cache');
 const myCache = new NodeCache();
-const { cacheData, getCachedData } = require('./cache.js');
+const { cacheData, getCachedData } = require('../../cache.js');
 const express = require('express'); 
 const axios = require('axios'); 
 require('dotenv').config(); 

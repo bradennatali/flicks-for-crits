@@ -24,11 +24,6 @@ const isLoggedIn = (req, res, next) => {
 };
 
 
-// Redirect root URL to the homepage
-router.get('/', (req, res) => {
-  res.redirect('/main'); // Redirect to the homepage route
-});
-
 // Homepage route
 router.get('/home', isLoggedIn, (req, res) => {
   res.render('main'); // Render the 'home' Handlebars template
