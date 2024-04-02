@@ -1,7 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 require('dotenv').config();
-const { Movie, Review } = require('./models/reviews.js'); 
+const { Movie, Review } = require('../../models/review.js');
 const router = express.Router();
 
 // Create an Axios instance with the OMDB API key as an authorization header
