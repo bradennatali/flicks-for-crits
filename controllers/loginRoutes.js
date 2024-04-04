@@ -40,7 +40,8 @@ router.get('/logout', (req, res) => {
       console.error('Error logging out:', err);
       res.status(500).json({ error: 'Internal Server Error' });
     } else {
-      res.status(200).json({ message: 'Logout successful.' });
+      // res.status(200).json({ message: 'Logout successful.' });
+      res.redirect('/login')
     }
   });
 });
