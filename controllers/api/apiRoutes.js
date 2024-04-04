@@ -41,7 +41,7 @@ router.get('api/apiRoutes/movies', isLoggedIn, async (req, res) => {
       // Data is not cached, make API request and cache the response
       const response = await omdbAxios.get('/', {
         params: {
-          s: searchTerm
+          s : searchTerm
         }
       });
   
