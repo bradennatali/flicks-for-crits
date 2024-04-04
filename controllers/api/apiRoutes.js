@@ -26,7 +26,7 @@ const isLoggedIn = (req, res, next) => {
   };
 
 // Define a GET endpoint for '/movies' route
-router.get('/movies', isLoggedIn, async (req, res) => {
+router.get('api/apiRoutes/movies', isLoggedIn, async (req, res) => {
     try {
       const searchTerm = req.query.search;
   

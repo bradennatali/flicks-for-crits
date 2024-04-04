@@ -5,10 +5,10 @@ const { User } = require('../models'); // Assuming you have a User model
 const router = express.Router();
 
 // Login route
-router.post('/login', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const { email, password } = req.body;
-
+console.log(email);
     // Check if the email exists in the database
     const user = await User.findOne({ where: { email } });
     if (!user) {
@@ -23,8 +23,9 @@ router.post('/login', async (req, res) => {
 
     // Set session data to indicate user is logged in
     req.session.userId = user.id;
-
-    res.status(200).json({ message: 'Login successful.', user });
+    
+    // res.status(200).json({ message: 'Login successful.', user });
+    res.redirect('/')
   } catch (error) {
     console.error('Error logging in:', error);
     res.status(500).json({ error: 'Internal Server Error' });

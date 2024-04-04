@@ -25,7 +25,7 @@ const isLoggedIn = (req, res, next) => {
 
 
 // POST route to add a review to a movie
-router.post('/movies/:imdbID/reviews', isLoggedIn, async (req, res) => {
+router.post('/api/routes/movies/:imdbID/reviews', isLoggedIn, async (req, res) => {
   try {
     const { imdbID } = req.params;
     const { content, userId } = req.body;

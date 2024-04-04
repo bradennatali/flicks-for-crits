@@ -6,6 +6,8 @@ let sequelize;
 if (process.env.JAWSDB_URL) {
   sequelize = new Sequelize(process.env.JAWSDB_URL);
 } else {
+  console.log(process.env.DB_NAME);
+  console.log(process.env.DB_USER);
   sequelize = new Sequelize(
     process.env.DB_NAME,
     process.env.DB_USER,
