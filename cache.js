@@ -1,14 +1,16 @@
 const NodeCache = require('node-cache');
 const cron = require('node-cron');
 const { Sequelize, DataTypes } = require('sequelize');
+require('dotenv').config();
 
 // Initialize NodeCache
 const myCache = new NodeCache();
 
 // Initialize Sequelize for database connection
-const sequelize = new Sequelize('user_db', 'your_username', 'your_password', {
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
   host: 'localhost',
   dialect: 'mysql',
+  port: 3306,
 });
 
 // Define a model for storing cached data in the database
