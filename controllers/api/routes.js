@@ -62,10 +62,11 @@ router.post('/movies/:imdbID/reviews', isLoggedIn, async (req, res) => {
       res.status(201).json({ message: 'Review added successfully', review });
     }
   } catch (error) {
-    console.error(error); // Log any errors that occur during the review creation process
-    res.status(500).json({ error: 'Internal Server Error' }); // Send a 500 status code with error message
+    console.error('Error adding review:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 
 module.exports = router;
