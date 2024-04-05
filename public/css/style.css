@@ -1,0 +1,17 @@
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 3fr); /* Three columns */
+    grid-template-rows: repeat(1, 3fr);
+    gap: 10px; /* Gap between images */
+  }
+  
+  .movie {
+    display: flex;
+    justify-content: center; /* Center align the image */
+    align-items: center; /* Center align vertically */
+  }
+  
+  .movie img {
+    max-width: 10%; /* Ensure images don't exceed their container */
+    height: auto; /* Maintain aspect ratio */
+  }
